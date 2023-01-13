@@ -23,7 +23,7 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as {date: string, title: string}),
     };
   });
   // Sort posts by date
@@ -37,7 +37,7 @@ export function getSortedPostsData() {
 }
 
 export function getAllPostIds() {
-    const fileNames = fs.readdirSync(postsDirectory);
+    const fileNames: string[] = fs.readdirSync(postsDirectory);
   
     // Returns an array that looks like this:
     // [
