@@ -26,22 +26,27 @@ export const getStaticPaths: GetStaticPaths = async() => {
 
   return {
     paths: paths.map((slug : string) => ({params: {slug}})),
-    fallback: true,
+    fallback: false,
   }
 }
 
 export default function Post({ post }: {post : {title: string, date: string, content: any, slug: string}}) {
+  const {
+    title = 'Missing title',
+    date = 'Missing date',
+    content = 'Missing Content'
+  } = post
     return (
       <Layout>
         <Head>
-            <title>{post.title}</title>
+            <title>{title}</title>
         </Head>
         <article>
-            <h1 className={utilStyles.headingXl}>{post.title}</h1>
+            <h1 className={utilStyles.headingXl}>{title}</h1>
             <div className={utilStyles.lightText}>
-                <Date dateString={post.date} />
+                <Date dateString={date} />
             </div>
-            <PortableText value={post.content}/>
+            <PortableText value={content}/>
         </article>
       </Layout>
     );
