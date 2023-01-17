@@ -9,7 +9,7 @@ import { GetStaticProps } from 'next';
 
 export const getStaticProps: GetStaticProps = async() => {
   const posts = await client.fetch(groq`
-      *[_type == "post" && publishedAt < now()] | order(publishedAt desc)
+      *[_type == "post" && date < now()] | order(date desc)
     `)
     return {
       props: {
@@ -36,7 +36,7 @@ export default function Home({ posts }) {
         <ul className={utilStyles.list}>
           {posts.map(({ slug, date, title }) => (
             <li className={utilStyles.listItem} key={slug}>
-              <Link href={`/posts/${slug}`} as={`/post/${slug.current}`}>{title}</Link>
+              <Link href={`/posts/${slug}`} as={`/posts/${slug.current}`}>{title}</Link>
               <br />
               <small className={utilStyles.lightText}>
                 <Date dateString={date} />
